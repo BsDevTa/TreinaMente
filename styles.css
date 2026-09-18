@@ -266,33 +266,48 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
-  padding-top: var(--space-sm);
-  padding-bottom: var(--space-sm);
+  max-width: none;
+  /* Altura da navbar controlada só por min-height — não depende do
+     tamanho da logo ou da fonte dos itens do menu. Para mudar a
+     altura da navbar, ajuste só este valor. */
+  min-height: 76px;
+  padding: 0 var(--space-lg);
 }
 
-.header__logo-img {
-  height: 40px;
+.header__logo-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header__logo {
+  /* PNG já é transparente e recortado sem espaço vazio (ver assets/img/logo-treinamente.png) —
+     height:auto-ratio via width:auto é suficiente, sem precisar de mix-blend-mode ou transform. */
+  height: 52px;
   width: auto;
+  object-fit: contain;
 }
 
 .header__nav {
   display: flex;
   align-items: center;
   flex: 1;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .header__nav-list {
   display: flex;
   align-items: center;
-  gap: var(--space-lg);
+  gap: var(--space-md);
   font-size: 0.95rem;
 }
 
 .header__nav-link {
   position: relative;
+  display: inline-block;
   color: var(--color-text);
   padding: 0.25rem 0;
+  white-space: nowrap;
   transition: color var(--transition);
 }
 
@@ -679,11 +694,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .treinamento-card__img {
-  width: 100%;
+  /* Sangra até a borda do card (cancela o padding de 2rem do .treinamento-card),
+     parando 2px antes da borda pra não tampar o efeito de "laser" animado. */
+  width: calc(100% + 4rem - 4px);
+  max-width: none; /* sobrescreve o reset global "img { max-width: 100% }" que cortava o sangramento */
+  margin: calc(2px - 2rem) calc(2px - 2rem) var(--space-md) calc(2px - 2rem);
   aspect-ratio: 16 / 10;
   object-fit: cover;
-  border-radius: var(--radius);
-  margin-bottom: var(--space-md);
+  border-radius: calc(var(--radius-lg) - 2px) calc(var(--radius-lg) - 2px) 0 0;
 }
 
 .treinamento-card__title {
